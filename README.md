@@ -7,7 +7,7 @@ Speed is done quite simply where there is a basic count (time) which increments 
 
 Size is fairly simple each thing has an int size attribute and a defined constant threshold is how much bigger a thing needs to be than another to eat it,- if a thing(T) tries to move to a space where another thing(t) is, there are 3 cases.
 
-Case I is T.size-t.size>threshold , where T is the ting moving, t is the thing being moved onto. In this case, T is at least threshold bigger than t, so T eats t and moves to his space, gaining food of 1 plus whatever the other thing had eaten. 
+Case I is T.size-t.size>threshold , where T is the thing moving, t is the thing being moved onto. In this case, T is at least threshold bigger than t, so T eats t and moves to his space, gaining food of 1 plus whatever the other thing had eaten. 
 
 Case II is T.size-t.size<-threshold. In this case, T tries to move to a bigger thing so gets eaten by t. t gains 1 food plus whatever T had eaten.
 
