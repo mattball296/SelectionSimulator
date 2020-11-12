@@ -859,7 +859,7 @@ public class SelectionSimulatorGraphical{
 									 {1,15,15,06}};
 		String[] thingStrings = new String[]{"A","B","C",};
 		SelectionSimulatorGraphical s = new SelectionSimulatorGraphical(false,500,50,isMutating,Things,thingStrings,0,0);
-		s.SimulateGenerations(1000);
+		//s.SimulateGenerations(1000);
 		
 		// writeData(s.thingDataToString(0),"A");
 		
