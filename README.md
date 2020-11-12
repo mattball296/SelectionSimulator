@@ -1,2 +1,18 @@
 # SelectionSimulator
-Elementary Program to simulate Natural Selection 
+WIP. Elementary Program to simulate Natural Selection. There exists a variable number of things living in a grid of fixed size. At the beginning, the initial amount of things are randomly placed across the grid. At the start of each "day" a fixed amount of food is either randomly generated in the plane or can be normally distributed around a specific grid co ordinate to gain areas of high and low food density. Each thing has 3 attributes - speed size and sense, and a fixed amount of energy.
+
+At the start of each "day" the things are ordered randomly and an incrementer representing time is started. The things then take turns to move once per time increment (unless speed is active - see later) to an adjacent square through randomly generating an adjacent square to attempt to move to (unless sense is active - see later). Attempting to move to an adjacent square decreases its energy by a function of its speed, size and sense.  If a thing moves into a square with food, it "eats" the food. If a thing tries to move to a square with another thing there, energy is used but nothing happens (unless size is in play - see later). These things keep moving unitl either they have eaten twice or run out of energy. If a thing manages to eat twice, it will reproduce, and at the start of the next "day", an additional thing is placed in an adjacent grid square, and for each attribute, there is a fixed chance the attribute decreases by one from its parent and a fixed chance it increases by one. If a thing runs out of energy having eaten once, it survives but has no offspring, and if it runs out of energy having not eaten, it dies. A day ends when no thing can move.
+
+Speed is done quite simply where there is a basic count (time) which increments by one and a thing t can only move if time%(t.speed)==0. This works effectively to let things with more speed move more often but isnt perfect as a speed of 1 moves twice as fast as a speed of 2, so not only is 1 the fastest, but the speed regression is not linear - in fact 1/speed is linear.
+
+Size is fairly simple each thing has an int size attribute and a defined constant threshold is how much bigger a thing needs to be than another to eat it,- if a thing(T) tries to move to a space where another thing(t) is, there are 3 cases.
+
+Case I is T.size-t.size>threshold , where T is the ting moving, t is the thing being moved onto. In this case, T is at least threshold bigger than t, so T eats t and moves to his space, gaining food of 1 plus whatever the other thing had eaten. 
+
+Case II is T.size-t.size<-threshold. In this case, T tries to move to a bigger thing so gets eaten by t. t gains 1 food plus whatever T had eaten.
+
+Case III is neither T or t is big enough to eat the other. Then nothing happens but T still loses energy.
+
+Sense is an int between 0 and 8 - and represents the number of adjacent squares a thing "checks" before deciding where to move. A sense of 0 moves totally randomly. A sense of 8 checks every adjacent square and moves to the most advantageous one ( the one which results in the greatest food increase - note these things do not understand game theory so cannot implement strategies). If 0<size<8, the thing randomly checks that many adjacent squares. If it finds a square with an edible thing, it moves there. Next priority is a plain food square, then an empty square then it will actively avoid moving onto larger things where it will be eaten. If no food square is found then a randomly generated square not flagged as death is moved to. 
+
+The things are represented as int[]s and stored in an ArrayList so at the end of each "day" it is easy to gather data on the things that survived and see trends as the things with advantageous traits have offspring and those without die out. This fairly basically simulates natural selection. 
